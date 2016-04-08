@@ -1,25 +1,27 @@
-(function() {
-    'use strict';
+
 
     chrome.runtime.sendMessage({action: "showIcon"}, function(response) {});
+
+    var iStreamApp = angular.module('iStreamApp', ['ngMaterial', 'ngMessages']);
 
     $(function() {
 		console.info("iStream is runing!");
 		initComponent.then(function () {
-			angular.module('iStreamApp', ['ngMaterial', 'ngMessages'])
-				.controller('triggerCtrl', function($scope, $mdDialog) {
-					$scope.openApp = function() {
-						console.info("in function");
-						$mdDialog.show(
-							$mdDialog.alert()
-							.clickOutsideToClose(true)
-							.title('Opening from the left')
-							.textContent('Closing to the right!')
-							.ariaLabel('Left to right demo')
-							.ok('Nice!')
-						);
-					};
-				});
+				// .directive('main',function ($sce) {
+				// 	var templateUrl =  $sce.trustAsResourceUrl(chrome.extension.getURL('../html/main.template.html'));
+			 //        console.info(templateUrl);
+			 //        return {
+			 //            templateUrl: templateUrl,
+			 //            controller: function () {
+			 //            	var vm = this;
+				// 	        angular.extend(vm, {
+				// 	            msg: "hi"
+				// 	        });
+			 //            },
+			 //            controllerAs: 'vm',
+			 //            restrict: 'E'
+			 //        };
+				// });
 			angular.bootstrap(document.getElementById("modal"), ['iStreamApp']);
 		});
 	});
@@ -52,6 +54,3 @@
 			} );
 		}
 	); 
-
-    
-})();
