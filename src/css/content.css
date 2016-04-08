@@ -1,0 +1,161 @@
+.bdtv-trigger a {
+	border: 1px solid #f70;
+	border-radius: 5px;
+}
+
+.blocker {
+	z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#modal {
+	border-radius: 0;
+	width: 600px;
+	height: 300px;
+	padding: 0;
+}
+
+.modal-content {
+	background-color: #212121;
+	height: 100%;
+	width: 100%;
+	color: #BDBDBD;
+}
+
+.yc-info {
+	height: 100%;
+	width: 35%;
+	border-right: 1px black solid;
+}
+
+.yc-donation {
+	margin: 8px 0;
+}
+
+.yc-options {
+	height: 100%;
+	width: 65%;
+}
+
+.yc-title sub {
+	font-size: 50%;
+}
+.yc-beg {
+	font-size: 90%;
+}
+
+.yc-opt {
+	font-size: 16px;
+	width: 85%;
+	height: 50px;
+	border-bottom: #616161 1px solid;
+}
+
+.yc-opt-text sub {
+    font-size: 70%;
+}
+
+.yc-opt:first-of-type {
+	border-top: #616161 1px solid;
+}
+
+/****************** layout css ***********************/
+.yc-fix-top-margin {
+    margin-top: 75px !important;
+}
+.yc-fix-main_col-top-margin {
+    margin-top: 0px !important;
+}
+#header {
+    border-bottom: 1px solid red !important;
+}
+#live_videobar {
+    border: 0 solid red !important;
+}
+#js_chat_mem {
+    border-left: 1px solid #212121 !important;
+}
+#room_container {
+	min-height: 100vh !important;
+}
+/****************** hide chat css ***********************/
+.yc-hide-chat {
+	width: 80vw !important;
+	height: calc(100vh - 250px) !important;
+}
+/****************** dark css ***********************/
+textarea {
+    background-color: #757575 !important;
+}
+img {
+    -webkit-filter: brightness(70%);
+}
+.banner {
+	background: #212121 !important;
+}
+
+.yc-dark-5 {
+    color: #9E9E9E !important;
+    background-color: #212121 !important;
+}
+.yc-dark-4 {
+    color: #9E9E9E !important;
+    background-color: #424242 !important;
+}
+.yc-dark-font-color {
+    color: #9E9E9E !important;
+}
+.yc-dark-font-color-lighter {
+    color: #E0E0E0 !important;
+}
+.yc-dark-noborder {
+	border: 0 solid !important;
+}
+
+/****************** switch css *********************/
+.onoffswitch {
+    position: relative; width: 63px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #616161; border-radius: 0px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 26px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+.onoffswitch-inner:before {
+    content: "开";
+    padding-left: 10px;
+    background-color: #33691E; color: #EEEEEE;
+}
+.onoffswitch-inner:after {
+    content: "关";
+    padding-right: 10px;
+    background-color: #B71C1C; color: #EEEEEE;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 26px; margin: 0px;
+    background: #616161;
+    position: absolute; top: 0; bottom: 0;
+    right: 37px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
