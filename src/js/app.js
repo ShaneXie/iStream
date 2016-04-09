@@ -7,21 +7,15 @@
     $(function() {
 		console.info("iStream is runing!");
 		initComponent.then(function () {
-				// .directive('main',function ($sce) {
-				// 	var templateUrl =  $sce.trustAsResourceUrl(chrome.extension.getURL('../html/main.template.html'));
-			 //        console.info(templateUrl);
-			 //        return {
-			 //            templateUrl: templateUrl,
-			 //            controller: function () {
-			 //            	var vm = this;
-				// 	        angular.extend(vm, {
-				// 	            msg: "hi"
-				// 	        });
-			 //            },
-			 //            controllerAs: 'vm',
-			 //            restrict: 'E'
-			 //        };
-				// });
+			iStreamApp.config(function($compileProvider) {
+				var currentImgSrcSanitizationWhitelist = $compileProvider.imgSrcSanitizationWhitelist();
+		        var newImgSrcSanitizationWhiteList = currentImgSrcSanitizationWhitelist.toString().slice(0,-1)
+		        + '|chrome-extension:'
+		        +currentImgSrcSanitizationWhitelist.toString().slice(-1);
+
+		        console.log("Changing imgSrcSanitizationWhiteList from "+currentImgSrcSanitizationWhitelist+" to "+newImgSrcSanitizationWhiteList);
+		        $compileProvider.imgSrcSanitizationWhitelist(newImgSrcSanitizationWhiteList);
+			});
 			angular.bootstrap(document.getElementById("modal"), ['iStreamApp']);
 		});
 	});
