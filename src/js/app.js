@@ -12,9 +12,7 @@
 		        var newImgSrcSanitizationWhiteList = currentImgSrcSanitizationWhitelist.toString().slice(0,-1)
 		        + '|chrome-extension:'
 		        +currentImgSrcSanitizationWhitelist.toString().slice(-1);
-
-		        console.log("Changing imgSrcSanitizationWhiteList from "+currentImgSrcSanitizationWhitelist+" to "+newImgSrcSanitizationWhiteList);
-		        $compileProvider.imgSrcSanitizationWhitelist(newImgSrcSanitizationWhiteList);
+				$compileProvider.imgSrcSanitizationWhitelist(newImgSrcSanitizationWhiteList);
 			});
 			angular.bootstrap(document.getElementById("modal"), ['iStreamApp']);
 		});

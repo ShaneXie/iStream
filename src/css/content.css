@@ -4,6 +4,10 @@
     min-width: 100%;
 }
 
+.dark-link {
+    color: #BDBDBD !important;
+}
+
 .bdtv-trigger a {
     border: 1px solid #f70;
     border-radius: 5px;
@@ -33,15 +37,26 @@
 
 .is-info-left {
     height: 100%;
-    width: 33%;
-    border-right: solid 1px rgb(22, 22, 22); 
+    width: 28%;
+    border-right: solid 2px rgb(22, 22, 22); 
 }
 .donation-img {
     margin: 15px 0;
 }
 
 .is-info-right {
-    width: 65%;
+    width: 70%;
+    height: 100%;
+}
+.is-info-right-top {
+    width: 80%;
+}
+.is-info-right-top h2 {
+    border-bottom: solid 2px #616161; 
+    margin-bottom: 10px;
+}
+.is-info-right-bottom {
+    width: 100%;
 }
 
 /************** angular material css hack *****************/
