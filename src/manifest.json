@@ -45,7 +45,8 @@
         "js/lib/angular-material.min.js",
         "js/app.js",
         "js/main.directive.js",
-        "js/is-info.directive.js"
+        "js/is-info.directive.js",
+        "js/is-option.directive.js"
       ]
     }
   ],

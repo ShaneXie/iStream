@@ -1,0 +1,35 @@
+<div class="is-option"
+	layout="row"
+	layout-align="center center">
+	<div class="is-option-left"
+		layout="column"
+		layout-align="space-around center">
+		<h2 class="md-headline">普通选项</h2>
+		<md-list class="option-list">
+			<md-list-item>
+				<p> 屏蔽广告 </p>
+				<md-switch class="md-secondary" 
+					ng-model="vm.options.adBlock"></md-switch>
+			</md-list-item>
+			<md-list-item>
+				<p> 夜间模式 </p>
+				<md-switch class="md-secondary"
+					ng-model="vm.options.nightMode"></md-switch>
+			</md-list-item>
+		</md-list>
+	</div>
+
+	<div class="is-option-right"
+		layout="column"
+		layout-align="space-around center">
+		<h2 class="md-headline">登录可用选项</h2>
+		<md-list ng-if="vm.isBindAccount"
+			class="option-list">
+			<md-list-item>
+				<p> 开播提醒 </p>
+				<md-switch class="md-secondary" 
+					ng-model="vm.options.notification"></md-switch>
+			</md-list-item>
+		</md-list>
+	</div>
+</div>
