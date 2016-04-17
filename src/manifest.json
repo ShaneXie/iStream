@@ -22,7 +22,8 @@
   },
   "permissions": [
     "tabs",
-    "storage"
+    "storage",
+    "tts"
   ],
   "content_scripts": [
     {
@@ -46,7 +47,10 @@
         "js/app.js",
         "js/main.directive.js",
         "js/is-info.directive.js",
-        "js/is-option.directive.js"
+        "js/is-option.directive.js",
+        "js/util.service.js",
+        "js/chat.service.js",
+        "js/option.service.js"
       ]
     }
   ],

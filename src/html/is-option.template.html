@@ -7,14 +7,29 @@
 		<h2 class="md-headline">普通选项</h2>
 		<md-list class="option-list">
 			<md-list-item>
-				<p> 屏蔽广告 </p>
+				<p>屏蔽广告 <sub>不好意思,此功能禁止关闭</sub> </p>
 				<md-switch class="md-secondary" 
-					ng-model="vm.options.adBlock"></md-switch>
+					ng-model="vm.options.adBlock"
+					ng-disabled="true"></md-switch>
+			</md-list-item>
+			<md-list-item ng-click="vm.toggleDark()">
+				<p>夜间模式 <sub>夜间模式看球更护眼</sub> </p>
+				<md-switch class="md-secondary"
+					aria-label="night mode switch"
+					ng-model="vm.options.nightMode"></md-switch>
+			</md-list-item>
+		</md-list>
+		<h2 class="md-headline">主播选项</h2>
+		<md-list class="option-list">
+			<md-list-item>
+				<p>朗读弹幕 <sub>让弹幕大神刷刷存在感吧</sub></p>
+				<md-switch class="md-secondary" 
+					ng-model="vm.options.tts"></md-switch>
 			</md-list-item>
 			<md-list-item>
-				<p> 夜间模式 </p>
+				<p>答谢礼物 <sub>拿了礼物当然要说谢谢</sub></p>
 				<md-switch class="md-secondary"
-					ng-model="vm.options.nightMode"></md-switch>
+					ng-model="vm.options.thx"></md-switch>
 			</md-list-item>
 		</md-list>
 	</div>
@@ -22,14 +37,15 @@
 	<div class="is-option-right"
 		layout="column"
 		layout-align="space-around center">
-		<h2 class="md-headline">登录可用选项</h2>
+		<h2 class="md-headline">高级选项 <sub>需绑定账户</sub></h2>
 		<md-list ng-if="vm.isBindAccount"
 			class="option-list">
 			<md-list-item>
-				<p> 开播提醒 </p>
+				<p>开播提醒 <sub>无需打开网页也能收到提醒哦</sub> </p>
 				<md-switch class="md-secondary" 
 					ng-model="vm.options.notification"></md-switch>
 			</md-list-item>
 		</md-list>
+		<div ng-if="!vm.isBindAccount">请先绑定账号</div>
 	</div>
 </div>
