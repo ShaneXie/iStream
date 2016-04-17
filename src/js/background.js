@@ -3,11 +3,13 @@ chrome.extension.onMessage.addListener(
 		if (request.action === "showIcon") {
 			chrome.pageAction.show(sender.tab.id);
 		}
+		if (request.action === "stopTTS") {
+			chrome.tts.stop();
+		}
 		if (request.action === "readMsg") {
 			chrome.tts.speak(request.msg, {
-				'gender':"female",
 				'lang':"zh-CN",
-				'voiceName':"Google 普通话（中国大陆）"
+				'enqueue': true
 			});
 		}
 		if (request.action === "updateConfig") {
@@ -36,5 +38,3 @@ chrome.extension.onMessage.addListener(
 		return false;
 	}
 );
-
-console.log(chrome.tts.getVoices());

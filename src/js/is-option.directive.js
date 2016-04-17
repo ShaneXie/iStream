@@ -18,9 +18,9 @@
         var alipayImageSrc = $sce.trustAsResourceUrl(chrome.extension.getURL('../assets/img/alipay.png'));
         angular.extend(vm, {
             options: optionService.conf,
-            toggleDark: optionService.toggleDark
+            toggleDark: optionService.toggleDark,
+            toggleTTS: optionService.toggleTTS
         });
-        //chatService.startObserve();
         $rootScope.$on('configUpdated', function (ev, data) {
             vm.options = data;
         });

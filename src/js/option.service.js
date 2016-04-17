@@ -5,6 +5,7 @@
 
   function optionService(
     util,
+    chatService,
     $rootScope
   ) {
     var conf = {};
@@ -21,7 +22,8 @@
 
     var service = {
       conf: conf,
-      toggleDark: toggleDark
+      toggleDark: toggleDark,
+      toggleTTS: toggleTTS
     };
 
     init ()
@@ -38,6 +40,9 @@
         if (conf.nightMode) {
           applyDarkCSS();
         };
+        if (conf.tts) {
+          chatService.startTTS();
+        };
       });
     }
 
@@ -48,6 +53,17 @@
         $("#right_col").addClass('is-fix-top-margin');
         $("#main_col").addClass('is-fix-main_col-top-margin');
       };
+    }
+
+    function toggleTTS () {
+      console.info("toggle tts");
+      conf.tts = !conf.tts;
+      if (conf.tts) {
+        chatService.startTTS();
+      } else {
+        chatService.stopTTS();
+      }
+      updateConfig();
     }
 
     function toggleDark () {

@@ -9,12 +9,37 @@
 
     var chatOb;
     var chatObConfig = { childList: true };
+    var isTTS = false;
+    var isThx = false;
 
     var service = {
-      isWatchDanmu: false,
-      startObserve: startObserve
+      startTTS: startTTS,
+      stopTTS: stopTTS
     };
+
     return service;
+
+    function startTTS () {
+      isTTS = true;
+      if (observeStatus()) {
+        startObserve();
+      };
+    }
+
+    function stopTTS () {
+      isTTS = false;
+      if (!observeStatus()) {
+        stopObserve();
+      };
+      chrome.runtime.sendMessage(
+        { action: "stopTTS" },
+        function(response) {}
+      );
+    }
+
+    function observeStatus () {
+      return isTTS || isThx;
+    }
 
     function startObserve () {
       var chatRoom;
@@ -28,7 +53,16 @@
       }
     }
 
+    function stopObserve () {
+      chatOb.disconnect();
+    }
+
     function douyuChatMsgHandler (mutations) {
+      var newMsg = {
+        type: "msg",
+        sender: "Shane",
+        msg: ""
+      }
       mutations.forEach(function(mutation) {
         var numOfNodeAdded = mutation.addedNodes.length;
         
@@ -36,10 +70,15 @@
           for (var i = 0; i < numOfNodeAdded; i++) {
             var currNode = mutation.addedNodes[i];
             if (currNode) {
-              var userName = currNode.querySelector(".nick").innerHTML;
-              var chatContent = currNode.querySelector("span.text-cont").innerHTML;
-              console.info(userName.split('：')[0]+":"+chatContent);
-              readChatMsg(chatContent);
+              newMsg.sender = currNode.querySelector(".nick").innerHTML;
+              if (currNode.querySelector("span.text-cont")) {
+                newMsg.type = "msg";
+                newMsg.msg = currNode.querySelector("span.text-cont").innerHTML;
+              };
+              console.info(newMsg.sender.split('：')[0]+":"+newMsg.msg);
+              if (isTTS) {
+                readChatMsg(newMsg.msg);
+              };
             }
           };
         };
