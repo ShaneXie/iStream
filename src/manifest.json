@@ -11,9 +11,9 @@
   },
   "background": {
     "scripts": [
+      "js/lib/jquery-2.2.2.min.js",
       "js/background.js"
-    ],
-    "persistent": false
+    ]
   },
   "page_action": {
     "default_icon": "assets/icons/icon19.png",
@@ -23,7 +23,9 @@
   "permissions": [
     "tabs",
     "storage",
-    "tts"
+    "tts",
+    "notifications",
+    "http://*.douyucdn.cn/*"
   ],
   "content_scripts": [
     {
@@ -40,6 +42,7 @@
         "js/lib/jquery-2.2.2.min.js",
         "js/lib/jquery.modal.min.js",
         "js/lib/angular.min.js",
+        "js/lib/angular-md5.js",
         "js/lib/angular-animate.min.js",
         "js/lib/angular-aria.min.js",
         "js/lib/angular-messages.min.js",

@@ -13,17 +13,20 @@
         };
     }
 
-    function isOptionController ($rootScope, $sce, optionService, chatService) {
+    function isOptionController ($rootScope, $http, $sce, optionService, chatService) {
         var vm = this;
         var alipayImageSrc = $sce.trustAsResourceUrl(chrome.extension.getURL('../assets/img/alipay.png'));
         angular.extend(vm, {
+            douyuAccount: {},
             options: optionService.conf,
+            bindAccount: optionService.bindAccount,
+            unbindAccount: optionService.unbindAccount,
             toggleDark: optionService.toggleDark,
-            toggleTTS: optionService.toggleTTS
+            toggleTTS: optionService.toggleTTS,
+            toggleNotification: optionService.toggleNotification
         });
         $rootScope.$on('configUpdated', function (ev, data) {
             vm.options = data;
         });
-
     }
 })();

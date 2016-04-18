@@ -6,7 +6,10 @@
   function optionService(
     util,
     chatService,
-    $rootScope
+    $rootScope,
+    $http,
+    md5,
+    $mdToast
   ) {
     var conf = {};
 
@@ -22,11 +25,14 @@
 
     var service = {
       conf: conf,
+      bindAccount: bindAccount,
+      unbindAccount: unbindAccount,
       toggleDark: toggleDark,
-      toggleTTS: toggleTTS
+      toggleTTS: toggleTTS,
+      toggleNotification: toggleNotification
     };
 
-    init ()
+    init();
 
     return service;
 
@@ -43,7 +49,41 @@
         if (conf.tts) {
           chatService.startTTS();
         };
+        if (conf.notification) {
+          chrome.runtime.sendMessage(
+            { action: "startNotificaiton" },
+            function(response) {}
+          );
+        };
       });
+    }
+
+    function bindAccount (site, acc) {
+      var pwdMD5 = md5.createHash(acc.password);
+      $http.get('http://capi.douyucdn.cn/api/v1/login?username='
+        +acc.username+'&password='+pwdMD5)
+        .then(function (res) {
+          if (!res.data.error) {
+            acc.password = pwdMD5;
+            acc.token = res.data.data.token;
+            acc.token_exp = res.data.data.token_exp;
+            acc.nickname = res.data.data.nickname;
+            conf.bindAccounts[site] = acc;
+            console.info(conf);
+            updateConfig();
+          } else {
+            $mdToast.show(
+              $mdToast.simple()
+                .textContent('绑定失败，请重新输入账号信息')
+                .hideDelay(3000)
+            );
+          }
+        });
+    }
+
+    function unbindAccount (site) {
+      delete conf.bindAccounts[site];
+      updateConfig();
     }
 
 
@@ -72,6 +112,23 @@
         applyDarkCSS();
       } else {
         removeDarkCSS();
+      }
+      updateConfig();
+    }
+
+    function toggleNotification () {
+      console.log("toggle Notification");
+      conf.notification = !conf.notification;
+      if (conf.notification) {
+        chrome.runtime.sendMessage(
+          { action: "startNotificaiton" },
+          function(response) {}
+        );
+      } else {
+        chrome.runtime.sendMessage(
+          { action: "stopNotificaiton" },
+          function(response) {}
+        );
       }
       updateConfig();
     }

@@ -1,3 +1,80 @@
+var checkItv;
+var douyuPerv = [];
+var isCheckinNotification = false;
+
+chrome.storage.local.get('config', function(object) {
+	var conf = object.config;
+	if (conf.notification) {
+		startNotificaiton();
+	};
+});
+
+function startNotificaiton () {
+	isCheckinNotification = true;
+	console.log("startNotificaiton");
+	checkItv = setInterval(function (argument) {
+		chrome.storage.local.get('config', function(object) {
+			var conf = object.config;
+			if (conf.bindAccounts.douyu) {
+				var acc = conf.bindAccounts.douyu;
+				if (acc.token_exp < Date.now()/1000){
+					$.get('http://capi.douyucdn.cn/api/v1/login?username='
+        +acc.username+'&password='+acc.password, function( res ) {
+						acc.token = res.data.data.token;
+            			acc.token_exp = res.data.data.token_exp;
+            			conf.bindAccounts.douyu = acc;
+            			chrome.storage.local.set({'config':conf}, function() {});
+					});
+				} else {
+					$.get('http://capi.douyucdn.cn/api/v1/remind_list?token='+acc.token+'&limit=99',
+						function (res) {
+							var currList = res.data;
+							if (douyuPerv.length === 0) {
+								douyuPerv = currList;
+								for (var i = 0; i < currList.length; i++) {
+									if(currList[i].live_status === "99") {
+										newNotification("douyu", currList[i]);
+									}
+								};
+							} else {
+								for (var i = 0; i < currList.length; i++) {
+									if(currList[i].live_status === "99") {
+										for (var j = 0; j < douyuPerv.length; j++) {
+											if (currList[i].id === douyuPerv[j].id && douyuPerv[j].live_status==="2") {
+												newNotification("douyu", currList[i]);
+											};
+										};
+										
+									}
+								};
+								douyuPerv = currList;
+							}
+						}
+					);
+				}
+			};
+		});
+	},10000);
+}
+
+function newNotification (site, info) {
+	if (site === 'douyu' ) {
+		var notification = new Notification(info.owner+'直播啦~', {
+			icon: info.owner_avatar_middle,
+			body: info.name+" 点击前往~",
+		});
+
+		notification.onclick = function () {
+			window.open("http://www.douyu.com/"+info.room_id);      
+		};
+	};
+}
+
+function stopNotificaiton () {
+	clearInterval(checkItv);
+	isCheckinNotification = false;
+}
+
 chrome.extension.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		if (request.action === "showIcon") {
@@ -5,6 +82,14 @@ chrome.extension.onMessage.addListener(
 		}
 		if (request.action === "stopTTS") {
 			chrome.tts.stop();
+		}
+		if (request.action === "startNotificaiton") {
+			if (!isCheckinNotification) {
+				startNotificaiton();
+			};
+		}
+		if (request.action === "stopNotificaiton") {
+			stopNotificaiton();
 		}
 		if (request.action === "readMsg") {
 			chrome.tts.speak(request.msg, {
@@ -27,7 +112,8 @@ chrome.extension.onMessage.addListener(
 					nightMode: true,
 					tts: false,
 					thx: false,
-					notification: false
+					notification: false,
+					bindAccounts: {}
 				}
 				console.info("queryConfig");
 				var config = object.config===undefined?defaultConfig:object.config;
@@ -38,3 +124,23 @@ chrome.extension.onMessage.addListener(
 		return false;
 	}
 );
+
+setInterval(function () {
+	// chrome.notifications.create(
+	// 	{
+	// 		type: "basic",
+	// 		title: "pis直播了~",
+	// 		message: "小树人们快回家啊~",
+	// 		iconUrl: "../assets/icons/icon19.png"
+	// 	})
+
+	// var notification = new Notification('Notification title', {
+ //      icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+ //      body: "Hey there! You've been notified!",
+ //    });
+
+ //    notification.onclick = function () {
+ //      window.open("http://stackoverflow.com/a/13328397/1269037");      
+ //    };
+    
+},1000);

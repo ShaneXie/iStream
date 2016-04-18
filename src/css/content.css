@@ -71,11 +71,27 @@
 }
 .option-list {
     width: 100%;
-    height: 85%;
     border-top: solid 1px rgb(22, 22, 22); 
     font-size: 120%;
 }
+.account-label {
+    margin-top: -20px;
+}
+.bind-btn {
+    margin-top: -15px;
+    min-width: 40px;
+}
+.unbind-btn {
+    min-width: 40px;
+}
 /************** angular material css hack *****************/
+md-input-container .md-input {
+    color: #BDBDBD !important;
+    border-color: red !important;
+}
+md-input-container label {
+    color: #BDBDBD !important;
+}
 md-pagination-wrapper {
     min-width: 400px;
     width: 400px;

@@ -33,14 +33,43 @@
 		layout="column"
 		layout-align="space-around center">
 		<h2 class="md-headline">高级选项 <sub>需绑定账户</sub></h2>
-		<md-list ng-if="vm.isBindAccount"
+		<md-list ng-if="vm.options.bindAccounts.douyu"
 			class="option-list">
-			<md-list-item>
+			<md-list-item ng-click="vm.toggleNotification()">
 				<p>开播提醒 <sub>无需打开网页也能收到提醒哦</sub> </p>
 				<md-switch class="md-secondary" 
 					ng-model="vm.options.notification"></md-switch>
 			</md-list-item>
 		</md-list>
-		<div ng-if="!vm.isBindAccount">请先绑定账号</div>
+		<div>
+			<p>绑定任意账号解锁高级选项:</p>
+			<div layout="row"
+				layout-align="space-around center">
+				<div ng-class="{'account-label':!vm.options.bindAccounts.douyu}">
+					斗鱼:</div>
+				<div ng-if="vm.options.bindAccounts.douyu">
+					当前绑定账号: {{ vm.options.bindAccounts.douyu.nickname }}
+					<span>
+						<md-button class="md-raised unbind-btn md-primary"
+						ng-click="vm.unbindAccount('douyu')">
+						解绑</md-button>
+					</span>
+				</div>
+				<div ng-if="!vm.options.bindAccounts.douyu"
+					layout="row"
+					layout-align="space-around center">
+					<md-input-container>
+						<label>用户名:</label>
+						<input ng-model="vm.douyuAccount.username">
+					</md-input-container>
+					<md-input-container>
+						<label>密码</label>
+						<input ng-model="vm.douyuAccount.password" type="password">
+					</md-input-container>
+					<md-button class="md-raised bind-btn md-primary"
+						ng-click="vm.bindAccount('douyu', vm.douyuAccount)">绑定</md-button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

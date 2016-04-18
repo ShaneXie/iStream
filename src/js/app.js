@@ -2,7 +2,7 @@
 
     chrome.runtime.sendMessage({action: "showIcon"}, function(response) {});
 
-    var iStreamApp = angular.module('iStreamApp', ['ngMaterial', 'ngMessages']);
+    var iStreamApp = angular.module('iStreamApp', ['ngMaterial', 'ngMessages','angular-md5']);
 
     $(function() {
 		console.info("iStream is runing!");
