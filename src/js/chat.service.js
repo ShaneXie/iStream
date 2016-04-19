@@ -70,14 +70,17 @@
           for (var i = 0; i < numOfNodeAdded; i++) {
             var currNode = mutation.addedNodes[i];
             if (currNode) {
-              newMsg.sender = currNode.querySelector(".nick").innerHTML;
+              newMsg.sender = currNode.querySelector(".nick").textContent;
               if (currNode.querySelector("span.text-cont")) {
                 newMsg.type = "msg";
-                newMsg.msg = currNode.querySelector("span.text-cont").innerHTML;
-              };
-              console.info(newMsg.sender.split('：')[0]+":"+newMsg.msg);
-              if (isTTS) {
-                readChatMsg(newMsg.msg);
+                newMsg.msg = unescape(currNode.querySelector("span.text-cont").textContent);
+                if (newMsg.msg!=="") {
+                  // not empty danmaku
+                  console.info(newMsg.sender.split('：')[0]+":"+newMsg.msg);
+                  if (isTTS) {
+                    readChatMsg(newMsg.msg);
+                  };
+                };
               };
             }
           };
