@@ -13,11 +13,9 @@
         };
     }
 
-    function isOptionController ($rootScope, $http, $sce, optionService, chatService) {
+    function isOptionController ($rootScope, optionService) {
         var vm = this;
-        var alipayImageSrc = $sce.trustAsResourceUrl(chrome.extension.getURL('../assets/img/alipay.png'));
         angular.extend(vm, {
-            douyuAccount: {},
             options: optionService.conf,
             bindAccount: optionService.bindAccount,
             unbindAccount: optionService.unbindAccount,

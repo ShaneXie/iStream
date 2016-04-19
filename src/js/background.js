@@ -98,7 +98,6 @@ chrome.extension.onMessage.addListener(
 			});
 		}
 		if (request.action === "updateConfig") {
-			console.info(request.config);
 			chrome.storage.local.set({'config':request.config}, function() {
 				console.info('config update');
 				sendResponse({msg: 'config update'});
@@ -111,7 +110,6 @@ chrome.extension.onMessage.addListener(
 					adBlock: true,
 					nightMode: true,
 					tts: false,
-					thx: false,
 					notification: false,
 					bindAccounts: {}
 				}
@@ -124,23 +122,3 @@ chrome.extension.onMessage.addListener(
 		return false;
 	}
 );
-
-setInterval(function () {
-	// chrome.notifications.create(
-	// 	{
-	// 		type: "basic",
-	// 		title: "pis直播了~",
-	// 		message: "小树人们快回家啊~",
-	// 		iconUrl: "../assets/icons/icon19.png"
-	// 	})
-
-	// var notification = new Notification('Notification title', {
- //      icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
- //      body: "Hey there! You've been notified!",
- //    });
-
- //    notification.onclick = function () {
- //      window.open("http://stackoverflow.com/a/13328397/1269037");      
- //    };
-    
-},1000);

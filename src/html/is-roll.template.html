@@ -1,0 +1,33 @@
+<div class="is-roll"
+	layout="column"
+	layout-align="center center">
+	<div class="roll-control"
+		layout="row"
+		layout-align="space-around center">
+		<md-input-container>
+			<label>关键字</label>
+			<input ng-model="keyword" ng-disabled="lockInput">
+		</md-input-container>
+		<md-input-container>
+			<label>人数</label>
+			<input ng-model="number" type="number" min="1"
+			ng-disabled="lockInput">
+		</md-input-container>
+		<md-button class="roll-btn md-raised md-primary"
+			ng-click="roll()">
+			{{btnText}}
+		</md-button>
+	</div>
+	<div class="roll-result"
+		layout-wrap
+		layout="row"
+		layout-align="start start">
+		<div class="roll-candi"
+			ng-class="{'roll-candi-lucky':candi.lucky}"
+			ng-repeat="candi in candiList"
+			flex="20">
+			{{ candi.sender }}
+		</div>
+	</div>
+
+</div>

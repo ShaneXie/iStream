@@ -50,6 +50,7 @@
         "js/app.js",
         "js/main.directive.js",
         "js/is-info.directive.js",
+        "js/is-roll.directive.js",
         "js/is-option.directive.js",
         "js/util.service.js",
         "js/chat.service.js",
