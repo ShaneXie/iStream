@@ -20,8 +20,8 @@ function startNotificaiton () {
 				if (acc.token_exp < Date.now()/1000){
 					$.get('http://capi.douyucdn.cn/api/v1/login?username='
         +acc.username+'&password='+acc.password, function( res ) {
-						acc.token = res.data.data.token;
-            			acc.token_exp = res.data.data.token_exp;
+						acc.token = res.data.token;
+            			acc.token_exp = res.data.token_exp;
             			conf.bindAccounts.douyu = acc;
             			chrome.storage.local.set({'config':conf}, function() {});
 					});
